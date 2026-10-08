@@ -1,0 +1,21 @@
+[Unit]
+Description=Spring Boot Application - Session 07 Exercise 3
+After=network-online.target mysql.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=spring-runner
+Group=spring-runner
+WorkingDirectory=/opt/spring-app
+Environment=SERVER_PORT=8082
+Environment=SPRING_DATASOURCE_URL=jdbc:mysql://localhost:3306/springboot_db
+Environment=SPRING_DATASOURCE_USERNAME=spring-admin
+EnvironmentFile=/etc/spring-app/spring-app.env
+ExecStart=/usr/bin/java -jar /opt/spring-app/app.jar
+Restart=on-failure
+RestartSec=10
+SuccessExitStatus=143
+
+[Install]
+WantedBy=multi-user.target
